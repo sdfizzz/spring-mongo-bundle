@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MongoUserDetailsService implements UserDetailsService {
@@ -24,11 +25,16 @@ public class MongoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         MongoUser user = userRepository.findByUsername(username);
 
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException(Constants.Messages.USER_NOT_FOUND);
         }
 
-        List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(Constants.Roles.USER));
+        List<SimpleGrantedAuthority> authorities =
+                user.getRoles()
+                        .stream()
+                        .filter(Constants.Roles::exists)
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
 
         return new User(user.getUsername(), user.getPassword(), authorities);
     }

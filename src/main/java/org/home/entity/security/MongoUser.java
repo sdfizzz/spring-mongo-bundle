@@ -4,6 +4,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Collections;
+import java.util.List;
+
 @Document(collection="users")
 public class MongoUser {
 
@@ -12,6 +15,7 @@ public class MongoUser {
 
     String username;
     String password;
+    List<String> roles;
 
     public MongoUser() {
     }
@@ -19,6 +23,13 @@ public class MongoUser {
     public MongoUser(String username, String password) {
         this.username = username;
         this.password = password;
+        this.roles = Collections.emptyList();
+    }
+
+    public MongoUser(String username, String password, List<String> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 
     public MongoUser(ObjectId id, String username, String password) {
@@ -49,5 +60,13 @@ public class MongoUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

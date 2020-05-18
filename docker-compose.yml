@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  spring-mongo:
+    build: .
+    container_name: docker-spring
+    restart: always
+    ports:
+    - 8081:8083
+
+  mongo:
+    container_name: docker_mongo
+    image: mongo:3.6-rc
+    restart: always
+    ports:
+    - 27018:27017

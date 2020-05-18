@@ -23,6 +23,7 @@ public class RootController {
     @PostMapping("/greeting/add")
     @ResponseStatus(HttpStatus.CREATED)
     public String addGreeting(@RequestParam() String template) {
-        return greetingService.save(template);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return greetingService.save(template, auth.getName());
     }
 }

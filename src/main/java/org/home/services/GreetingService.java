@@ -24,14 +24,14 @@ public class GreetingService {
         return all.get(ThreadLocalRandom.current().nextInt(all.size())).getMessage();
     }
 
-    public String save(String message) {
+    public String save(String message, String userId) {
         if (StringUtils.isEmpty(message)) return "message can't be empty";
 
         // check if greeting exists
         List<Greeting> byMessage = greetingRepository.findByMessage(message);
         if (!byMessage.isEmpty()) return "record exists";
 
-        Greeting saved = greetingRepository.save(new Greeting(message));
+        Greeting saved = greetingRepository.save(new Greeting(message, userId));
         return saved.getId() != null ? "successful" : "";
     }
 }

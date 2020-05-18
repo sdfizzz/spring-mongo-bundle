@@ -12,15 +12,17 @@ public class Greeting {
     @Id
     private String id;
     private String message;
+    private String fromUser;
 
     public Greeting() {
     }
 
-    public Greeting(String message) {
+    public Greeting(String message, String userId) {
         this.message = message;
+        this.fromUser = userId;
     }
 
-    public Greeting(String id, String message) {
+    public Greeting(String id, String message, String userId) {
         this.id = id;
         this.message = message;
     }
@@ -39,5 +41,13 @@ public class Greeting {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser;
     }
 }

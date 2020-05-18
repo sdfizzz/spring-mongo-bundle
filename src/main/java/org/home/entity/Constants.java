@@ -1,9 +1,21 @@
 package org.home.entity;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Constants {
     public static class Roles {
-        public static String USER = "USER";
-        public static String ADMIN = "ADMIN";
+
+        private final static List<String> roles = Arrays.asList(Constants.Roles.USER, Constants.Roles.ADMIN);
+
+        public static boolean exists(String role) {
+            return roles.contains(role);
+        }
+
+        public final static String USER = "USER";
+        public final static String ADMIN = "ADMIN";
+
     }
 
     public static class Messages {
