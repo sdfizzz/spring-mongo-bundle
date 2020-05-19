@@ -1,7 +1,6 @@
 package org.home.configs;
 
 import org.home.services.MongoUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableConfigurationProperties
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    MongoUserDetailsService mongoUserDetailsService;
+    private final MongoUserDetailsService mongoUserDetailsService;
+
+    public WebSecurityConfig(final MongoUserDetailsService mongoUserDetailsService) {
+        this.mongoUserDetailsService = mongoUserDetailsService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
