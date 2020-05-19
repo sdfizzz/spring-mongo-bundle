@@ -7,23 +7,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 public class RootController {
 
-    @Autowired
-    private GreetingService greetingService;
-
-    @GetMapping("/greeting")
-    @ResponseStatus(HttpStatus.OK)
-    public String getGreeting() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return String.format(greetingService.getRandomGreetingMessage(), auth.getName());
+    @GetMapping("/")
+    public String hello() {
+        return "hello!";
     }
 
-    @PostMapping("/greeting/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addGreeting(@RequestParam() String template) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return greetingService.save(template, auth.getName());
+    @GetMapping("/user/me")
+    public Principal user(Principal principal) {
+        return principal;
     }
 }
