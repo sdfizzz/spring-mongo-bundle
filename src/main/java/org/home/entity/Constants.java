@@ -1,5 +1,7 @@
 package org.home.entity;
 
+import lombok.NonNull;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +11,7 @@ public class Constants {
 
         private final static List<String> roles = Arrays.asList(Constants.Roles.USER, Constants.Roles.ADMIN);
 
-        public static boolean exists(String role) {
+        public static boolean exists(@NonNull String role) {
             return roles.contains(role);
         }
 
