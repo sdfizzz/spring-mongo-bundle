@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GreetingRepository extends MongoRepository<Greeting, Long> {
+public interface GreetingRepository extends MongoRepository<Greeting, String> {
     List<Greeting> findByMessage(String message);
 }

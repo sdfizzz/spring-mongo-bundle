@@ -2,11 +2,11 @@ package org.home.services;
 
 import org.home.entity.Greeting;
 import org.home.repositories.GreetingRepository;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -18,9 +18,11 @@ public class GreetingService {
         this.greetingRepository = greetingRepository;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    public List<Greeting> getAll() {
+        return greetingRepository.findAll();
+    }
+
     public String getRandomGreetingMessage() {
-        // todo: refact with cache
         List<Greeting> all = greetingRepository.findAll();
         return all.get(ThreadLocalRandom.current().nextInt(all.size())).getMessage();
     }
@@ -34,5 +36,9 @@ public class GreetingService {
 
         Greeting saved = greetingRepository.save(new Greeting(message, userId));
         return saved.getId() != null ? "successful" : "";
+    }
+
+    public Optional<Greeting> getById(String id) {
+        return greetingRepository.findById(id);
     }
 }
