@@ -1,14 +1,14 @@
 package org.home.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
 @Document(collection="greetings")
 public class Greeting {
 
-    @MongoId
+    @Id
     private String id;
     private String message;
     private String fromUser;

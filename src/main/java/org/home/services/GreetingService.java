@@ -27,6 +27,10 @@ public class GreetingService {
         return all.get(ThreadLocalRandom.current().nextInt(all.size())).getMessage();
     }
 
+    public void delete(String id) {
+        greetingRepository.deleteById(id);
+    }
+
     public String save(String message, String userId) {
         if (StringUtils.isEmpty(message)) return "message can't be empty";
 
